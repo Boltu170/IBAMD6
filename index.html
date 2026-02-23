@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consumers – Lecture 6 · MOD010838</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:#5C3317;background-image:repeating-linear-gradient(45deg,rgba(0,0,0,0.04) 0px,rgba(0,0,0,0.04) 2px,transparent 2px,transparent 10px);min-height:100vh;display:flex;flex-direction:column}
+.outer{max-width:1060px;margin:0 auto;padding:16px 18px 8px;display:flex;flex-direction:column;min-height:100vh}
+.slide{display:none}
+.slide.active{display:block;animation:fadeUp 0.4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.slide-header{display:flex;justify-content:space-between;align-items:center;background:#E8D5B7;border-radius:14px 14px 0 0;padding:10px 22px;border-bottom:3px solid #8B4513}
+.aru-logo-text{display:flex;flex-direction:column;line-height:1.1}
+.aru-logo-text span:first-child{font-family:'Merriweather',serif;font-size:1.25em;font-weight:700;color:#8B4513;letter-spacing:1px}
+.aru-logo-text span:last-child{font-size:0.72em;color:#5C3317;font-weight:600}
+.slide-badge{font-size:0.82em;font-weight:700;color:#8B4513;background:#FFF8DC;border:2px solid #CD853F;border-radius:20px;padding:4px 14px}
+.card{background:#FEFAE8;padding:28px 38px 30px;box-shadow:inset 0 -4px 0 #8B4513}
+.panel{background:#FFF8DC;border-radius:0 0 14px 14px;padding:20px 28px 22px;border:3px solid #CD853F;border-top:none;box-shadow:0 8px 28px rgba(0,0,0,0.3)}
+.title-body{background:linear-gradient(135deg,#2C1810 0%,#8B4513 55%,#5C3317 100%);padding:44px 40px;color:white;box-shadow:inset 0 -4px 0 #5C3317;text-align:center}
+.title-body h1{color:white;border-bottom-color:rgba(255,255,255,0.25);font-size:1.9em}
+.pill{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:25px;padding:5px 18px;margin:5px 4px;font-size:0.88em;color:white}
+h1{font-family:'Merriweather',serif;font-size:1.65em;color:#2C1810;border-bottom:4px solid #8B4513;padding-bottom:9px;margin-bottom:18px;line-height:1.3}
+h2{font-size:1.08em;color:#5C3317;margin:18px 0 8px;font-weight:700}
+h3{font-size:0.97em;color:#8B4513;margin:10px 0 5px;font-weight:700}
+p{font-size:0.97em;line-height:1.7;margin-bottom:6px;color:#2C1810}
+ul.b{margin:6px 0 10px 18px}
+ul.b li{font-size:0.97em;line-height:1.65;color:#2C1810;margin-bottom:5px}
+ul.b li strong{color:#5C3317}
+.hbox{background:#FFF8DC;border:2px solid #CD853F;border-radius:9px;padding:13px 17px;margin:11px 0}
+.ibox{background:#e8f5e9;border-left:5px solid #2e7d32;border-radius:7px;padding:11px 16px;margin:9px 0}
+.wbox{background:#fdecea;border-left:5px solid #c62828;border-radius:7px;padding:11px 16px;margin:9px 0}
+.bluebox{background:#e3f2fd;border-left:5px solid #1565c0;border-radius:7px;padding:11px 16px;margin:9px 0}
+/* Real-life call-out box */
+.rl-box{background:#fff3e0;border:2px solid #e65100;border-radius:10px;padding:14px 18px;margin:13px 0}
+.rl-box .rl-title{font-weight:700;color:#e65100;font-size:0.93em;letter-spacing:0.5px;margin-bottom:6px}
+.ex-box{background:#F5E6D3;border-left:5px solid #D2691E;border-radius:8px;padding:14px 18px;margin:13px 0}
+.ex-box h3{margin-top:0;color:#D2691E}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:12px 0}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin:12px 0}
+.gi{background:#FFF8F0;border:2px solid #DEB887;border-radius:9px;padding:13px}
+.gi h3{margin-top:0}
+.sum-item{background:#FFF8F0;border:2px solid #CD853F;border-radius:9px;padding:13px}
+.sum-item h3{margin-top:0;font-size:0.97em}
+table{width:100%;border-collapse:collapse;margin:13px 0;font-size:0.91em}
+th{background:#8B4513;color:white;padding:9px 12px;text-align:left}
+td{padding:8px 12px;border-bottom:1px solid #DEB887;background:#FFFEF5}
+tr:nth-child(even) td{background:#FFF8E8}
+td strong{color:#5C3317}
+.toggle-btn{background:#8B4513;color:white;border:none;padding:9px 20px;border-radius:8px;cursor:pointer;font-size:0.92em;font-family:'Source Sans 3',sans-serif;font-weight:700;margin:10px 0 3px;transition:background 0.2s,transform 0.15s;display:inline-block}
+.toggle-btn:hover{background:#A0522D;transform:translateY(-2px)}
+.toggle-content{display:none;background:#FFF8F0;border:2px solid #8B4513;border-radius:9px;padding:15px 17px;margin:5px 0 13px}
+.toggle-content.show{display:block}
+.step{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
+.step-num{background:#8B4513;color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:0.9em}
+.step-body{flex:1;padding-top:3px;font-size:0.97em;color:#2C1810}
+.slide-icon{font-size:1.8em;margin-bottom:8px;display:block}
+.lim{display:flex;gap:11px;align-items:flex-start;background:#F5E6D3;border-left:4px solid #8B4513;border-radius:7px;padding:10px 13px;margin:8px 0}
+.lim-icon{font-size:1.2em;flex-shrink:0}
+.diagram-wrap{background:#FFF8F0;border:2px solid #DEB887;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+/* MCQ */
+.mcq-q{font-size:1.05em;font-weight:700;color:#2C1810;margin-bottom:11px}
+.mcq-opts{list-style:none;padding:0}
+.mcq-opt{background:white;border:2px solid #DEB887;border-radius:8px;padding:10px 14px;margin:7px 0;cursor:pointer;font-size:0.95em;transition:all 0.25s}
+.mcq-opt:hover{background:#FFF8DC;border-color:#8B4513;transform:translateX(5px)}
+.mcq-opt.correct{background:#d4edda;border-color:#28a745}
+.mcq-opt.incorrect{background:#f8d7da;border-color:#dc3545}
+.mcq-feedback{display:none;border-radius:8px;padding:12px 15px;margin-top:11px;font-size:0.95em;line-height:1.6}
+.mcq-feedback.show{display:block}
+.mcq-feedback.ok{background:#d4edda;border:2px solid #28a745;color:#155724}
+.mcq-feedback.no{background:#f8d7da;border:2px solid #dc3545;color:#721c24}
+/* MATCHING */
+.match-hint{font-size:0.88em;color:#5C3317;margin-bottom:12px;font-style:italic}
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.match-col-label{font-size:0.78em;font-weight:700;color:#8B4513;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.match-item{background:white;border:2px solid #DEB887;border-radius:8px;padding:10px 14px;margin:6px 0;cursor:pointer;font-size:0.92em;line-height:1.5;transition:all 0.2s;color:#2C1810}
+.match-item:hover{border-color:#8B4513;background:#FFF8DC}
+.match-item.sel{border-color:#8B4513;background:#E8D5B7;box-shadow:0 0 0 3px rgba(139,69,19,0.25)}
+.match-item.match-correct{border-color:#28a745!important;background:#d4edda!important;color:#155724!important}
+.match-item.match-incorrect{border-color:#dc3545!important;background:#f8d7da!important;color:#721c24!important}
+.match-btn-row{display:flex;gap:10px;align-items:center;margin-top:4px}
+.match-reset-btn{background:#6c757d;color:white;border:none;padding:9px 18px;border-radius:8px;cursor:pointer;font-size:0.9em;font-family:'Source Sans 3',sans-serif;font-weight:700;transition:background 0.2s}
+.match-reset-btn:hover{background:#5a6268}
+/* NAV */
+.nav-bar{display:flex;justify-content:space-between;align-items:center;padding:13px 0 5px}
+.nav-btn{background:#8B4513;color:white;border:none;padding:11px 28px;border-radius:8px;font-size:1em;font-family:'Source Sans 3',sans-serif;font-weight:700;cursor:pointer;transition:all 0.2s}
+.nav-btn:hover:not(:disabled){background:#A0522D;transform:scale(1.04)}
+.nav-btn:disabled{background:#555;cursor:not-allowed;opacity:0.5}
+.progress-wrap{text-align:center}
+.progress-text{color:#F5E6D3;font-size:1em;font-weight:700;display:block}
+.prog-outer{background:#3a1a08;border-radius:8px;height:8px;width:160px;margin:5px auto 0;overflow:hidden}
+.prog-inner{background:#CD853F;height:100%;border-radius:8px;transition:width 0.4s ease}
+@media(max-width:640px){.grid2,.grid3,.match-cols{grid-template-columns:1fr}.card,.title-body,.panel{padding:18px 16px}h1{font-size:1.3em}.slide-header{flex-direction:column;gap:8px;text-align:center}}
+</style>
+</head>
+<body>
+<div class="outer">
+
+<!-- ═══ SLIDE 1 — TITLE ═══ -->
+
+<div class="slide active" id="slide-1">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Lecture 6 · MOD010838</span>
+  </div>
+  <div class="title-body">
+    <div style="font-size:3em;margin-bottom:14px">🛒</div>
+    <h1>Consumers</h1>
+    <p style="margin:10px 0 6px;font-size:1.1em">International Business and Market Dynamics · MOD010838</p>
+    <div><span class="pill">Faculty of Business &amp; Law</span></div>
+    <div style="max-width:560px;margin:24px auto 0;text-align:left">
+      <p style="color:rgba(255,255,255,0.5);text-align:center;font-size:0.85em;margin-bottom:12px">BY THE END OF THIS LECTURE YOU WILL BE ABLE TO:</p>
+      <p style="color:rgba(255,255,255,0.9);margin:10px 0">✅ Explain what price elasticity of demand means and why it matters for businesses</p>
+      <p style="color:rgba(255,255,255,0.9);margin:10px 0">✅ Explain price discrimination — why you often pay more than someone else for the same thing</p>
+      <p style="color:rgba(255,255,255,0.9);margin:10px 0">✅ Recognise the mental shortcuts firms use to influence your spending decisions</p>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="mcq-q">🤔 Quick thought before we start — Have you ever bought something in a "sale" and then wondered if it was actually a deal? Or added something to your basket just because a timer was running out?</div>
+    <p style="color:#5C3317;margin-bottom:12px">By the end of this lecture, you'll know exactly <em>why</em> you did that — and the name for every trick that made you do it. Which of these sounds most familiar?</p>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,false,'That\'s a real thing, but it\'s about substitutes — we cover that on slide 3.','The key trick here is the original price creating a reference point in your mind.')">A) I switched to a cheaper brand when the one I liked got too expensive</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Good instinct — but the bigger trick isn\'t the countdown itself, it\'s the fear of missing out on a deal that might not even be real.','Loss aversion is definitely part of it — we get to that on slide 9!')">B) I bought something because a timer was running out, even though I wasn't planning to</li>
+      <li class="mcq-opt" onclick="ans(this,true,'Yes! That crossed-out price is called an anchor. It\'s a number planted in your head to make the sale price feel like a bargain — even if the original price was never real. This lecture explains exactly how firms do this.','The original price anchors your sense of value. We explore this in detail in slide 7.')">C) I saw a big crossed-out price and assumed I was getting a great deal — without checking if the original price was ever real</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Brand loyalty is real, but it doesn\'t explain the pricing tricks firms use. We\'ll cover what\'s actually happening when you feel pulled toward a brand.','Brand loyalty connects to the availability heuristic — we\'ll cover that on slide 8.')">D) I just always buy the same brand without really thinking about why</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 2 — WHAT IS PED ═══ -->
+
+<div class="slide" id="slide-2">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 2 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">📉</span>
+    <h1>Price Elasticity of Demand — The Big Idea</h1>
+
+```
+<div class="hbox">
+  <p><strong>One simple question:</strong> if a firm puts its price up — how many customers does it lose?</p>
+  <ul class="b" style="margin-top:8px">
+    <li>Sometimes: <strong>barely any</strong> — the firm can charge more and still keep customers</li>
+    <li>Sometimes: <strong>almost everyone leaves</strong> — the firm is stuck at its current price</li>
+    <li>This difference is called <strong>Price Elasticity of Demand (PED)</strong></li>
+  </ul>
+</div>
+
+<div class="rl-box">
+  <div class="rl-title">🎓 WHY THIS MATTERS TO YOU</div>
+  <ul class="b">
+    <li>Your landlord puts rent up — you probably <em>stay</em> (inelastic — moving is expensive and disruptive)</li>
+    <li>Your favourite coffee shop puts prices up by £1 — you probably <em>walk next door</em> (elastic — loads of alternatives)</li>
+    <li>Firms think about this <em>every single time</em> they set a price</li>
+  </ul>
+</div>
+
+<h2>The Demand Curve — Refresher</h2>
+<ul class="b">
+  <li>Demand curve always slopes <strong>downward</strong> — higher price = fewer buyers</li>
+  <li>PED asks: <em>how much does quantity fall when price rises?</em></li>
+  <li><strong>Steep curve</strong> = quantity barely changes = <strong>inelastic</strong></li>
+  <li><strong>Shallow curve</strong> = quantity changes a lot = <strong>elastic</strong></li>
+</ul>
+
+<div class="diagram-wrap">
+  <svg viewBox="0 0 570 268" xmlns="http://www.w3.org/2000/svg" font-family="'Source Sans 3',sans-serif" style="max-width:100%">
+    <text x="122" y="16" fill="#8B4513" font-size="13" font-weight="700" text-anchor="middle">STEEP = INELASTIC</text>
+    <line x1="46" y1="22" x2="46" y2="232" stroke="#8B4513" stroke-width="2.5"/><line x1="46" y1="232" x2="230" y2="232" stroke="#8B4513" stroke-width="2.5"/>
+    <text x="24" y="130" fill="#5C3317" font-size="11" text-anchor="middle" transform="rotate(-90,24,130)">Price £</text>
+    <text x="138" y="250" fill="#5C3317" font-size="11" text-anchor="middle">Quantity</text>
+    <line x1="46" y1="30" x2="200" y2="225" stroke="#c62828" stroke-width="3.5"/>
+    <text x="205" y="228" fill="#c62828" font-size="13" font-weight="700">D</text>
+    <line x1="46" y1="108" x2="108" y2="108" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/><line x1="46" y1="147" x2="138" y2="147" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/>
+    <line x1="108" y1="108" x2="108" y2="232" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/><line x1="138" y1="147" x2="138" y2="232" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/>
+    <circle cx="108" cy="108" r="4" fill="#c62828"/><circle cx="138" cy="147" r="4" fill="#2e7d32"/>
+    <text x="42" y="111" fill="#c62828" font-size="10" text-anchor="end" font-weight="700">P₁</text><text x="42" y="150" fill="#2e7d32" font-size="10" text-anchor="end" font-weight="700">P₂</text>
+    <text x="108" y="247" fill="#c62828" font-size="10" text-anchor="middle" font-weight="700">Q₁</text><text x="138" y="247" fill="#2e7d32" font-size="10" text-anchor="middle" font-weight="700">Q₂</text>
+    <line x1="108" y1="240" x2="138" y2="240" stroke="#8B4513" stroke-width="2"/>
+    <polygon points="105,240 110,237 110,243" fill="#8B4513"/><polygon points="141,240 136,237 136,243" fill="#8B4513"/>
+    <text x="123" y="258" fill="#8B4513" font-size="9" text-anchor="middle">SMALL qty change</text>
+    <text x="408" y="16" fill="#8B4513" font-size="13" font-weight="700" text-anchor="middle">SHALLOW = ELASTIC</text>
+    <line x1="295" y1="22" x2="295" y2="232" stroke="#8B4513" stroke-width="2.5"/><line x1="295" y1="232" x2="555" y2="232" stroke="#8B4513" stroke-width="2.5"/>
+    <text x="275" y="130" fill="#5C3317" font-size="11" text-anchor="middle" transform="rotate(-90,275,130)">Price £</text>
+    <text x="425" y="250" fill="#5C3317" font-size="11" text-anchor="middle">Quantity</text>
+    <line x1="295" y1="30" x2="540" y2="225" stroke="#2e7d32" stroke-width="3.5"/>
+    <text x="545" y="228" fill="#2e7d32" font-size="13" font-weight="700">D</text>
+    <line x1="295" y1="108" x2="393" y2="108" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/><line x1="295" y1="147" x2="442" y2="147" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/>
+    <line x1="393" y1="108" x2="393" y2="232" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/><line x1="442" y1="147" x2="442" y2="232" stroke="#888" stroke-width="1.5" stroke-dasharray="4"/>
+    <circle cx="393" cy="108" r="4" fill="#c62828"/><circle cx="442" cy="147" r="4" fill="#2e7d32"/>
+    <text x="291" y="111" fill="#c62828" font-size="10" text-anchor="end" font-weight="700">P₁</text><text x="291" y="150" fill="#2e7d32" font-size="10" text-anchor="end" font-weight="700">P₂</text>
+    <text x="393" y="247" fill="#c62828" font-size="10" text-anchor="middle" font-weight="700">Q₁</text><text x="442" y="247" fill="#2e7d32" font-size="10" text-anchor="middle" font-weight="700">Q₂</text>
+    <line x1="393" y1="240" x2="442" y2="240" stroke="#8B4513" stroke-width="2"/>
+    <polygon points="390,240 395,237 395,243" fill="#8B4513"/><polygon points="445,240 440,237 440,243" fill="#8B4513"/>
+    <text x="418" y="258" fill="#8B4513" font-size="9" text-anchor="middle">LARGE qty change</text>
+  </svg>
+  <p style="font-size:0.84em;color:#5C3317;margin-top:8px"><em>Same price drop in both diagrams — but look at how differently quantity responds.</em></p>
+</div>
+
+<div class="bluebox">
+  <p>🔑 <strong>One sentence to remember:</strong> Steep curve = customers stuck with you (inelastic). Shallow curve = customers walk away easily (elastic).</p>
+</div>
+```
+
+  </div>
+  <div class="panel">
+    <div class="mcq-q">❓ Your landlord raises the rent by £100/month. You stay put. Which curve describes this situation?</div>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,true,'Correct! You stayed even after a price rise — that\'s inelastic demand. Moving is expensive, disruptive, and hard. The landlord knows this and uses it.','Inelastic = price rises but quantity barely changes. You\'re a classic captive customer.')">A) Steep / inelastic — moving is too disruptive so you stay regardless of the price</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Elastic would mean you leave immediately when price rises. But moving house is costly and difficult — most students stay.','If you left immediately it would be elastic. Staying despite the rise = inelastic.')">B) Shallow / elastic — you immediately look for somewhere cheaper</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Perfectly inelastic is a theoretical extreme. Your situation is inelastic, but not perfectly so.','Perfectly inelastic is a theoretical extreme. Inelastic is the right answer here.')">C) Perfectly inelastic — price has absolutely no effect on behaviour</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Unit elastic means TR stays the same. That\'s a measurement concept, not this situation.','Unit elastic is a measurement term. The scenario describes inelastic demand.')">D) Unit elastic — the change in price exactly matches the change in behaviour</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 3 — ELASTIC VS INELASTIC ═══ -->
+
+<div class="slide" id="slide-3">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 3 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">🔎</span>
+    <h1>Elastic vs Inelastic — How to Tell the Difference</h1>
+
+```
+<div class="hbox">
+  <p><strong>Ask yourself one question:</strong> <em>"If this gets more expensive, can I easily get it elsewhere — or am I stuck?"</em></p>
+  <ul class="b" style="margin-top:8px">
+    <li>Easily swap → <strong>elastic demand</strong></li>
+    <li>Stuck → <strong>inelastic demand</strong></li>
+  </ul>
+</div>
+
+<div class="grid2">
+  <div class="gi" style="border-color:#c62828">
+    <h3 style="color:#c62828">🧊 INELASTIC — consumers are stuck</h3>
+    <ul class="b">
+      <li>No good alternatives</li>
+      <li>It's a necessity — you <em>need</em> it</li>
+      <li>Small share of income</li>
+      <li>Addictive or habitual</li>
+    </ul>
+    <div class="rl-box" style="margin-top:8px">
+      <div class="rl-title">🎓 YOUR LIFE</div>
+      <ul class="b">
+        <li>Student accommodation — you <em>need</em> somewhere to live</li>
+        <li>Phone data plan — being offline for a student is genuinely not an option</li>
+        <li>Insulin — no substitute, full stop</li>
+      </ul>
+    </div>
+    <div class="ibox" style="margin-top:8px"><p>✅ Firms <strong>can</strong> raise prices — revenue goes up because customers stay</p></div>
+  </div>
+  <div class="gi" style="border-color:#2e7d32">
+    <h3 style="color:#2e7d32">🌊 ELASTIC — consumers can walk</h3>
+    <ul class="b">
+      <li>Lots of close alternatives</li>
+      <li>Non-essential / luxury</li>
+      <li>Large share of income</li>
+      <li>Time to shop around</li>
+    </ul>
+    <div class="rl-box" style="margin-top:8px">
+      <div class="rl-title">🎓 YOUR LIFE</div>
+      <ul class="b">
+        <li>ASOS vs any other online fashion site — dozens of alternatives</li>
+        <li>One coffee shop vs another — if it gets expensive, walk next door</li>
+        <li>Branded cereal vs own-brand — tastes almost the same</li>
+      </ul>
+    </div>
+    <div class="wbox" style="margin-top:8px"><p>❌ Firms <strong>can't</strong> easily raise prices — customers leave</p></div>
+  </div>
+</div>
+
+<h2>Why Do Big Companies Keep Raising Prices?</h2>
+<ul class="b">
+  <li>Large firms with <strong>few competitors</strong> have what economists call <strong>pricing power</strong></li>
+  <li>When their product is a necessity — they know customers are stuck</li>
+  <li>So they charge more and revenue goes up — almost no consequence</li>
+</ul>
+
+<div class="ex-box">
+  <h3>💡 Spot the Difference</h3>
+  <p><strong>Spotify raises its price from £10.99 to £11.99.</strong> Do you cancel? Probably not — your playlists, your podcasts, your gym music are all there. Inelastic. Revenue goes up. ✅</p>
+  <p style="margin-top:8px"><strong>A coffee shop you like raises its flat white to £7.</strong> Do you stay? Probably not — the one next door is £4.20. Elastic. Revenue falls. ❌</p>
+</div>
+```
+
+  </div>
+
+  <!-- MATCHING — SLIDE 3 -->
+
+  <div class="panel" id="match-wrap-3" data-exid="3">
+    <div class="mcq-q">🔗 Matching Exercise — Which demand type fits each situation?</div>
+    <p class="match-hint">Click an item on the left, then click its match on the right. Match all before checking.</p>
+    <div class="match-cols">
+      <div>
+        <div class="match-col-label">Situation</div>
+        <div class="match-item left-item" data-key="A" data-pair="2" onclick="matchClick(this,'3')">💊 A student's prescribed ADHD medication goes up in price</div>
+        <div class="match-item left-item" data-key="B" data-pair="3" onclick="matchClick(this,'3')">👗 Your favourite ASOS brand raises prices — but Zara, H&M and Boohoo are all the same cost as before</div>
+        <div class="match-item left-item" data-key="C" data-pair="4" onclick="matchClick(this,'3')">🏠 Your student landlord puts rent up £80/month mid-tenancy</div>
+        <div class="match-item left-item" data-key="D" data-pair="1" onclick="matchClick(this,'3')">🍕 Domino's raises pizza prices — but there are four other delivery apps on your phone</div>
+      </div>
+      <div>
+        <div class="match-col-label">Demand type &amp; reason</div>
+        <div class="match-item right-item" data-key="1" onclick="matchClick(this,'3')">ELASTIC — non-essential, many alternatives available at a click</div>
+        <div class="match-item right-item" data-key="2" onclick="matchClick(this,'3')">INELASTIC — medical necessity, no substitute exists</div>
+        <div class="match-item right-item" data-key="3" onclick="matchClick(this,'3')">ELASTIC — fashion is a luxury, rivals are everywhere</div>
+        <div class="match-item right-item" data-key="4" onclick="matchClick(this,'3')">INELASTIC — moving is costly and disruptive, you need housing</div>
+      </div>
+    </div>
+    <div class="match-btn-row">
+      <button class="toggle-btn" onclick="checkMatch('3')">✓ Check Answers</button>
+      <button class="match-reset-btn" onclick="resetMatch('3')">↺ Reset</button>
+    </div>
+    <div id="match-result-3"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 4 — TOTAL REVENUE ═══ -->
+
+<div class="slide" id="slide-4">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 4 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">💷</span>
+    <h1>PED and Total Revenue</h1>
+
+```
+<div class="hbox">
+  <p><strong>Total Revenue = Price × Quantity</strong> — the money coming in before any costs</p>
+  <ul class="b" style="margin-top:8px">
+    <li>Every price change affects both price <em>and</em> how much is sold</li>
+    <li>Elasticity tells you which effect wins</li>
+  </ul>
+</div>
+
+<div class="diagram-wrap">
+  <svg viewBox="0 0 400 235" xmlns="http://www.w3.org/2000/svg" font-family="'Source Sans 3',sans-serif" style="max-width:100%">
+    <line x1="50" y1="15" x2="50" y2="200" stroke="#8B4513" stroke-width="2.5"/><line x1="50" y1="200" x2="375" y2="200" stroke="#8B4513" stroke-width="2.5"/>
+    <line x1="55" y1="20" x2="360" y2="195" stroke="#8B4513" stroke-width="3"/>
+    <text x="363" y="195" fill="#8B4513" font-size="13" font-weight="700">D</text>
+    <line x1="50" y1="112" x2="215" y2="112" stroke="#c62828" stroke-width="1.8" stroke-dasharray="5"/>
+    <line x1="215" y1="112" x2="215" y2="200" stroke="#c62828" stroke-width="1.8" stroke-dasharray="5"/>
+    <rect x="50" y="112" width="165" height="88" fill="rgba(139,69,19,0.18)" stroke="#8B4513" stroke-width="1.5"/>
+    <polygon points="50,20 50,112 215,112" fill="rgba(46,125,50,0.2)" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4"/>
+    <circle cx="215" cy="112" r="4.5" fill="#c62828"/>
+    <text x="36" y="116" fill="#c62828" font-size="11" text-anchor="end" font-weight="700">P*</text>
+    <text x="215" y="216" fill="#c62828" font-size="11" text-anchor="middle" font-weight="700">Q*</text>
+    <text x="132" y="160" fill="#8B4513" font-size="12" font-weight="700" text-anchor="middle">Total Revenue</text>
+    <text x="132" y="175" fill="#8B4513" font-size="10" text-anchor="middle">(P × Q = Area)</text>
+    <text x="107" y="62" fill="#2e7d32" font-size="11" font-weight="700" text-anchor="middle">Consumer</text>
+    <text x="107" y="76" fill="#2e7d32" font-size="11" font-weight="700" text-anchor="middle">Surplus</text>
+    <text x="36" y="115" fill="#8B4513" font-size="11" text-anchor="middle" transform="rotate(-90,36,115)">Price £</text>
+    <text x="213" y="228" fill="#8B4513" font-size="11" text-anchor="middle">Quantity</text>
+  </svg>
+  <p style="font-size:0.84em;color:#5C3317;margin-top:6px"><em>Total Revenue = the shaded rectangle. Height = price. Width = quantity. Firms are trying to find the price that makes this rectangle as large as possible.</em></p>
+</div>
+
+<table>
+  <tr><th>Demand type</th><th>Price rises → TR…</th><th>Price falls → TR…</th><th>So firms should…</th></tr>
+  <tr><td><strong>Inelastic</strong></td><td>Goes UP ✅ (kept most customers)</td><td>Goes DOWN ❌</td><td>Charge <em>higher</em> prices</td></tr>
+  <tr><td><strong>Elastic</strong></td><td>Goes DOWN ❌ (lost too many)</td><td>Goes UP ✅ (gained lots)</td><td>Use deals to drive <em>volume</em></td></tr>
+</table>
+
+<div class="rl-box">
+  <div class="rl-title">🎓 WHY THIS MATTERS TO YOU</div>
+  <ul class="b">
+    <li><strong>Spotify raised its price in 2023.</strong> Most subscribers stayed — it's too embedded in daily life. Revenue went up. Inelastic strategy worked.</li>
+    <li><strong>McDonald's app deals</strong> (free McFlurry, 99p wrap) — lower price, huge volume of app users gained. Elastic strategy at work.</li>
+    <li><strong>ASOS sale events</strong> — drop prices, flood of orders. They bank on elastic demand for fashion to drive volume.</li>
+  </ul>
+</div>
+```
+
+  </div>
+  <div class="panel">
+    <div class="mcq-q">❓ Netflix raised its Standard plan price by £2/month. Subscriber numbers barely changed. What happened to Netflix's total revenue?</div>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,true,'Correct! Barely anyone cancelled, so the extra £2/month from almost every subscriber added up massively. That\'s inelastic demand working in Netflix\'s favour — price rises, revenue rises.','Inelastic = keep most customers + higher price = revenue goes up.')">A) It went up — most subscribers stayed, so the price rise more than made up for any cancellations</li>
+      <li class="mcq-opt" onclick="ans(this,false,'If barely anyone cancelled, you gain on price without losing much on volume. Revenue goes up, not down.','Revenue only falls when the volume loss outweighs the price gain — that\'s elastic demand.')">B) It went down — raising prices always drives customers away</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Unit elastic is when the % change in quantity exactly matches the % change in price — TR stays the same. That\'s a special case, not what happened here.','Unit elastic is a special theoretical case. Netflix kept subscribers so revenue rose.')">C) It stayed exactly the same — it was perfectly unit elastic</li>
+      <li class="mcq-opt" onclick="ans(this,false,'The question tells us subscriber numbers barely changed, so we do have enough information to answer.','We\'re told barely anyone cancelled — that\'s all we need to conclude revenue went up.')">D) We can't tell — we don't have enough information</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 5 — PRICE DISCRIMINATION ═══ -->
+
+<div class="slide" id="slide-5">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 5 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">🎯</span>
+    <h1>Price Discrimination</h1>
+
+```
+<div class="hbox">
+  <p><strong>Price discrimination</strong> = charging <em>different people different prices for the exact same thing</em></p>
+  <ul class="b" style="margin-top:8px">
+    <li>The product doesn't change — only the price tag does</li>
+    <li>Firms do this to extract as much money as possible from each type of customer</li>
+    <li>You are almost certainly paying different prices from other people — right now</li>
+  </ul>
+</div>
+
+<div class="rl-box">
+  <div class="rl-title">🎓 YOU EXPERIENCE THIS EVERY DAY</div>
+  <ul class="b">
+    <li><strong>Spotify:</strong> Student plan £5.99 vs Individual £11.99 — same app, same songs</li>
+    <li><strong>Railcard:</strong> 26–30 Railcard gives you ⅓ off — same seat, same train</li>
+    <li><strong>Student discount on everything</strong> — ASOS, cinema, restaurants — you pay less than others for identical goods</li>
+    <li><strong>Flights:</strong> the person next to you on the plane probably paid a completely different price for the same seat</li>
+  </ul>
+</div>
+
+<h2>Three Things a Firm Needs to Do This</h2>
+<div class="grid3">
+  <div class="gi">
+    <h3>1️⃣ Segment the market</h3>
+    <ul class="b">
+      <li>Identify groups who will pay different amounts</li>
+      <li>Students vs professionals</li>
+      <li>Last-minute buyers vs planners</li>
+    </ul>
+  </div>
+  <div class="gi">
+    <h3>2️⃣ Stop resale</h3>
+    <ul class="b">
+      <li>Can't let cheap customers sell to expensive ones</li>
+      <li>Your NUS card ties the discount to <em>you</em></li>
+      <li>Student Spotify is verified — you can't share it with your parents</li>
+    </ul>
+  </div>
+  <div class="gi">
+    <h3>3️⃣ Have market power</h3>
+    <ul class="b">
+      <li>Must have enough control over the market to set different prices</li>
+      <li>In a perfectly competitive market, this is impossible</li>
+      <li>Someone else would always undercut you</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Consumer Surplus — The Real Target</h2>
+<ul class="b">
+  <li>Some customers would happily pay <em>more</em> than the listed price</li>
+  <li>The gap between "what you'd pay" and "what you actually pay" = <strong>consumer surplus</strong></li>
+  <li>Price discrimination is how firms try to capture that gap for themselves</li>
+</ul>
+
+<button class="toggle-btn" onclick="tog(this)" data-label="More Real-Life Examples">📖 More Real-Life Examples</button>
+<div class="toggle-content">
+  <table>
+    <tr><th>Where</th><th>How it works</th><th>Who pays more</th></tr>
+    <tr><td><strong>Train companies</strong></td><td>Peak vs off-peak tickets — same journey</td><td>Commuters and business travellers</td></tr>
+    <tr><td><strong>Netflix</strong></td><td>Standard with ads £4.99 vs Premium 4K £17.99 — same library</td><td>Those who hate ads and want quality</td></tr>
+    <tr><td><strong>Uber Eats / Deliveroo</strong></td><td>Surge pricing on rainy Fridays — same restaurant, higher delivery fee</td><td>Hungry people who can't be bothered to cook</td></tr>
+    <tr><td><strong>Cinema</strong></td><td>Student/OAP prices vs full evening price</td><td>Working adults without discounts</td></tr>
+    <tr><td><strong>Supermarket loyalty cards</strong></td><td>You get the deal price — others pay full</td><td>Anyone without the app or card</td></tr>
+    <tr><td><strong>Amazon Prime</strong></td><td>Student Prime at 50% off — same service</td><td>Non-students paying full price</td></tr>
+  </table>
+</div>
+```
+
+  </div>
+  <div class="panel">
+    <div class="mcq-q">❓ You have a Spotify Student account at £5.99/month. Your friend without a student email pays £11.99 for the same app. Which condition of price discrimination is most clearly at work here?</div>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,true,'Spot on! Spotify has segmented the market — students (price-sensitive, lower income) vs non-students (higher willingness to pay). Your student email is the tool that identifies which group you\'re in. That\'s market segmentation in action.','Market segmentation: students and non-students have very different willingness to pay, and the student email verifies which group you belong to.')">A) Market segmentation — Spotify identified that students have lower willingness to pay and verified your status via student email</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Preventing resale matters (you can\'t give your login to a non-student), but the reason different prices exist at all is the segmentation of the two groups.','Preventing resale is a condition, but segmentation is the main concept being illustrated here.')">B) Preventing resale — Spotify stops students sharing their accounts</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Market power is a precondition, but it doesn\'t explain why two different prices are charged. That\'s the segmentation element.','Market power enables price discrimination — but segmentation explains why there are two prices.')">C) Market power — Spotify dominates music streaming so can charge what it likes</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Consumer surplus is the concept behind why price discrimination works in theory. But the specific mechanism here is market segmentation — splitting customers by their willingness to pay.','Consumer surplus is relevant but the specific mechanism illustrated here is market segmentation.')">D) Consumer surplus — Spotify is trying to capture the extra value students would be willing to pay</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6 — BOUNDED RATIONALITY ═══ -->
+
+<div class="slide" id="slide-6">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 6 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">🧠</span>
+    <h1>Bounded Rationality — Why We're Not as Rational as We Think</h1>
+
+```
+<div class="hbox">
+  <p>Economics used to assume people make <em>perfectly rational</em> decisions. Researcher <strong>Herbert Simon</strong> proved that's impossible — and called our limits <strong>bounded rationality</strong>.</p>
+  <ul class="b" style="margin-top:8px">
+    <li>We <em>try</em> to make good decisions</li>
+    <li>But our brains are overwhelmed — so we take shortcuts</li>
+    <li>Firms know exactly what those shortcuts look like and <strong>design their entire sales strategy around them</strong></li>
+  </ul>
+</div>
+
+<h2>Three Reasons We Can't Be Fully Rational</h2>
+<div class="grid3">
+  <div class="gi">
+    <h3>🧩 Our brains hit a wall</h3>
+    <ul class="b">
+      <li>We can't process everything we see</li>
+      <li>Attention filters out most of it</li>
+      <li>We can only hold a few things in mind at once</li>
+    </ul>
+    <div class="rl-box" style="margin-top:8px">
+      <div class="rl-title">🎓 SOUND FAMILIAR?</div>
+      <p style="font-size:0.9em">500 shows on Netflix → you rewatch The Office. Your brain gave up and defaulted to something safe.</p>
+    </div>
+  </div>
+  <div class="gi">
+    <h3>📰 We're missing information</h3>
+    <ul class="b">
+      <li>We don't know everything we'd need to decide perfectly</li>
+      <li>Do you know which energy tariff is actually cheapest?</li>
+      <li>Can you compare every product across every shop?</li>
+    </ul>
+    <div class="rl-box" style="margin-top:8px">
+      <div class="rl-title">🎓 SOUND FAMILIAR?</div>
+      <p style="font-size:0.9em">You pick headphones based on the star rating — you have no idea what "40Hz frequency response" actually means.</p>
+    </div>
+  </div>
+  <div class="gi">
+    <h3>⏰ We're always in a rush</h3>
+    <ul class="b">
+      <li>We don't have unlimited time for every decision</li>
+      <li>Faster decisions = less careful decisions</li>
+      <li>Firms deliberately create urgency to push us here</li>
+    </ul>
+    <div class="rl-box" style="margin-top:8px">
+      <div class="rl-title">🎓 SOUND FAMILIAR?</div>
+      <p style="font-size:0.9em">"Offer ends at midnight!" — you panic-buy without stopping to check if it's even a good deal.</p>
+    </div>
+  </div>
+</div>
+
+<h2>What Do We Do Instead? — Satisficing</h2>
+<ul class="b">
+  <li><strong>Satisficing</strong> = picking something that's <em>good enough</em>, not optimal</li>
+  <li>It's not laziness — it's the only way to function</li>
+  <li>We use <strong>heuristics</strong> (mental shortcuts) to do it</li>
+  <li>The problem: heuristics have <strong>predictable blind spots — and firms exploit every single one</strong></li>
+</ul>
+```
+
+  </div>
+
+  <!-- MATCHING — SLIDE 6 -->
+
+  <div class="panel" id="match-wrap-6" data-exid="6">
+    <div class="mcq-q">🔗 Matching Exercise — Match each concept to its plain-English meaning</div>
+    <p class="match-hint">Click a concept on the left, then click its meaning on the right.</p>
+    <div class="match-cols">
+      <div>
+        <div class="match-col-label">Concept</div>
+        <div class="match-item left-item" data-key="A" data-pair="3" onclick="matchClick(this,'6')">🧠 Bounded rationality</div>
+        <div class="match-item left-item" data-key="B" data-pair="5" onclick="matchClick(this,'6')">✅ Satisficing</div>
+        <div class="match-item left-item" data-key="C" data-pair="1" onclick="matchClick(this,'6')">⚡ Heuristics</div>
+        <div class="match-item left-item" data-key="D" data-pair="4" onclick="matchClick(this,'6')">🧩 Cognitive limitations</div>
+        <div class="match-item left-item" data-key="E" data-pair="2" onclick="matchClick(this,'6')">⏰ Time constraints</div>
+      </div>
+      <div>
+        <div class="match-col-label">Plain English meaning</div>
+        <div class="match-item right-item" data-key="1" onclick="matchClick(this,'6')">Brain shortcuts — fast and mostly OK, but with predictable blind spots firms love to exploit</div>
+        <div class="match-item right-item" data-key="2" onclick="matchClick(this,'6')">Being in a rush pushes you toward snap decisions — and firms deliberately manufacture urgency to get you there</div>
+        <div class="match-item right-item" data-key="3" onclick="matchClick(this,'6')">Our decision-making has hard limits — we can't process everything, so we take shortcuts</div>
+        <div class="match-item right-item" data-key="4" onclick="matchClick(this,'6')">Your brain can only juggle a few things at once — which is why 500 options on Netflix ends in you rewatching something familiar</div>
+        <div class="match-item right-item" data-key="5" onclick="matchClick(this,'6')">Picking "good enough" instead of the best option — because finding the best would take forever</div>
+      </div>
+    </div>
+    <div class="match-btn-row">
+      <button class="toggle-btn" onclick="checkMatch('6')">✓ Check Answers</button>
+      <button class="match-reset-btn" onclick="resetMatch('6')">↺ Reset</button>
+    </div>
+    <div id="match-result-6"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 7 — ANCHORING ═══ -->
+
+<div class="slide" id="slide-7">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 7 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">⚓</span>
+    <h1>Heuristic 1 — Anchoring</h1>
+
+```
+<div class="hbox">
+  <p><strong>Anchoring:</strong> the first number you see sticks in your head and biases everything that follows</p>
+  <ul class="b" style="margin-top:8px">
+    <li>We grab onto the first number as a reference point</li>
+    <li>Then we adjust from there — but never far enough</li>
+    <li>The scary part: even a <em>completely irrelevant</em> number can anchor you</li>
+  </ul>
+</div>
+
+<div class="ex-box">
+  <h3>🎰 The Classic Proof — Kahneman &amp; Tversky (1974)</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-body">A rigged wheel of fortune — it could only land on <strong>10</strong> or <strong>65</strong></div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-body">After seeing the number, people were asked: <em>"What % of UN countries are in Africa?"</em></div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-body">Wheel landed on <strong>10</strong> → average guess: <strong>25%</strong></div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-body">Wheel landed on <strong>65</strong> → average guess: <strong>45%</strong></div></div>
+  <p style="margin-top:10px"><strong>A random, irrelevant spinning wheel changed people's answers. Imagine what a carefully chosen "original price" does to your sense of value.</strong></p>
+</div>
+
+<h2>How Firms Use This On You</h2>
+<div class="grid2">
+  <div class="gi">
+    <h3>🏷️ "Was £599, Now £299"</h3>
+    <ul class="b">
+      <li>£599 is the anchor — it sets your sense of what the product is worth</li>
+      <li>£299 then feels like an incredible deal</li>
+      <li>Even if £599 was only listed for 4 days months ago</li>
+      <li><strong>ASOS, SHEIN, TikTok Shop</strong> do this constantly</li>
+    </ul>
+  </div>
+  <div class="gi">
+    <h3>🔢 £4.99 vs £5.00</h3>
+    <ul class="b">
+      <li>The first digit anchors your impression before you process the rest</li>
+      <li>Your brain sees "4" and registers "cheap"</li>
+      <li>It's why almost <em>everything</em> costs .99</li>
+      <li>A difference of 1p doing enormous psychological work</li>
+    </ul>
+  </div>
+  <div class="gi">
+    <h3>🛒 "Max 3 per customer"</h3>
+    <ul class="b">
+      <li>The number 3 anchors how many you "should" buy</li>
+      <li>Research shows people buy <em>more</em> when this is displayed</li>
+      <li>They adjust their purchase quantity toward the anchor</li>
+    </ul>
+  </div>
+  <div class="gi">
+    <h3>🍽️ Restaurant menus</h3>
+    <ul class="b">
+      <li>Expensive item at the top anchors your expectations upward</li>
+      <li>A £28 pasta seems reasonable next to a £75 lobster</li>
+      <li>Same trick: premium gym plans shown first</li>
+    </ul>
+  </div>
+</div>
+
+<div class="rl-box">
+  <div class="rl-title">🎓 CHECK YOUR PHONE RIGHT NOW</div>
+  <ul class="b">
+    <li>Open any shopping app — ASOS, Amazon, Depop, TikTok Shop</li>
+    <li>Count how many products show a crossed-out price</li>
+    <li>That crossed-out number is an anchor. It's doing its job right now.</li>
+  </ul>
+</div>
+```
+
+  </div>
+  <div class="panel">
+    <div class="mcq-q">❓ ASOS shows a dress as "Was £65 · Now £18." Records show it was only listed at £65 for one week last year. You feel like you're getting a great deal. What's happening?</div>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,false,'Loss aversion is about fearing you\'ll miss a deal — but the primary mechanism here is the £65 reference price changing your sense of what the dress is worth.','A static price label is primarily an anchor. Loss aversion is a different mechanism.')">A) Loss aversion — you're scared you'll miss the deal if you don't buy now</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Availability is about advertising keeping a brand in your memory. A price label is an anchoring device.','Availability relates to brand memory through advertising — not a price label.')">B) Availability heuristic — you've seen ASOS advertised so much that you trust its pricing</li>
+      <li class="mcq-opt" onclick="ans(this,true,'Exactly right! The £65 is an anchor. It creates a reference point — your brain now judges the dress as worth "about £65." So £18 feels like an extraordinary bargain. The fact that £65 was never a genuine sustained price doesn\'t matter — the anchor works anyway.','Anchoring: the first price you see (£65) shapes your entire judgement of value, regardless of whether it was real.')">C) Anchoring — the £65 sets a reference point that makes £18 feel like a bargain, real or not</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Satisficing is about settling for a good enough decision. The specific mechanism here — a reference price changing your perception of value — is anchoring.','Satisficing is a general behaviour. The specific trick being used here is anchoring.')">D) Satisficing — you're just settling for good enough rather than searching for the best price</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 8 — AVAILABILITY ═══ -->
+
+<div class="slide" id="slide-8">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 8 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">📱</span>
+    <h1>Heuristic 2 — Availability</h1>
+
+```
+<div class="hbox">
+  <p><strong>Availability:</strong> we judge how good, important or likely something is based on how easily it pops into our head</p>
+  <ul class="b" style="margin-top:8px">
+    <li>The easier something is to recall → the more we trust it</li>
+    <li>Firms flood your memory with their brand <em>before</em> you need to make a decision</li>
+    <li>When the buying moment comes — they're already at the top of your mind</li>
+  </ul>
+</div>
+
+<div class="rl-box">
+  <div class="rl-title">🎓 THIS IS LITERALLY YOUR FYP</div>
+  <ul class="b">
+    <li>A Stanley Cup appears on your TikTok FYP 12 times this week</li>
+    <li>You weren't thinking about water bottles before — now you are</li>
+    <li>The algorithm flooded your memory with that product</li>
+    <li>When you go to buy a bottle — the Stanley is the <em>obvious</em> choice, because it's available in your memory</li>
+    <li>Firms now pay influencers to flood FYPs <strong>just before a product launch</strong> — this is availability engineering</li>
+  </ul>
+</div>
+
+<div class="grid2">
+  <div class="ibox">
+    <h3>✅ Availability working normally</h3>
+    <ul class="b">
+      <li>You go back to a café you genuinely loved 10 times</li>
+      <li>Your memory reflects real experience</li>
+      <li>That's the heuristic doing its job well</li>
+    </ul>
+  </div>
+  <div class="wbox">
+    <h3>❌ Availability being manipulated</h3>
+    <ul class="b">
+      <li>You reach for Heinz without looking at the alternatives</li>
+      <li>Not because it's objectively better</li>
+      <li>Because you've seen that label thousands of times</li>
+      <li>Advertising <em>manufactured</em> that memory</li>
+    </ul>
+  </div>
+</div>
+
+<div class="ex-box">
+  <h3>💡 Why Coca-Cola Still Spends Billions on Ads</h3>
+  <ul class="b">
+    <li>Everyone already knows what Coca-Cola is — they're not informing you</li>
+    <li>They're keeping themselves at the <strong>top of your memory</strong></li>
+    <li>When you're thirsty and standing at a fridge — the most <em>available</em> brand wins</li>
+    <li>What's most memorable gets bought. That's it.</li>
+  </ul>
+</div>
+
+<div class="bluebox">
+  <p>🔑 <strong>The firm's goal:</strong> be the first thing that pops into your head at the buying moment. Every billboard, every ad, every sponsored post is memory engineering.</p>
+</div>
+```
+
+  </div>
+  <div class="panel">
+    <div class="mcq-q">❓ A burger brand runs ads during every Premier League match, on every motorway billboard, and as the first sponsored post on your Instagram feed. The burgers haven't changed. Why?</div>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,false,'If the product is unchanged, there\'s nothing to inform anyone about. This advertising has a different purpose.','When nothing has changed, informing customers isn\'t the goal.')">A) To inform people about new menu items</li>
+      <li class="mcq-opt" onclick="ans(this,true,'Exactly! A brand everyone already knows doesn\'t need to inform anyone. These ads are about staying at the top of your memory — so when you\'re hungry and picking somewhere to eat, they\'re the first name that surfaces. That\'s the availability heuristic working in their favour.','Availability: constant advertising keeps the brand at the top of memory, so it\'s chosen automatically at the buying moment.')">B) To stay top of mind — so when you're hungry and deciding where to go, they're the first thing you think of</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Making competitors look bad isn\'t the primary purpose. The goal is simply making their own brand more available in your memory.','The goal is own-brand memory, not competitor confusion.')">C) To make competitors look worse by comparison</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Staff might benefit indirectly, but spending millions on TV ads is aimed at consumers, not employees.','External ad campaigns are aimed at consumer memory — not employee morale.')">D) To improve staff morale and help recruitment</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 9 — LOSS AVERSION ═══ -->
+
+<div class="slide" id="slide-9">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 9 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">😰</span>
+    <h1>Heuristic 3 — Loss Aversion</h1>
+
+```
+<div class="hbox">
+  <p><strong>Loss aversion:</strong> losing something hurts more than gaining the same thing feels good</p>
+  <ul class="b" style="margin-top:8px">
+    <li>Find £20 on the street → you feel pleased for an hour</li>
+    <li>Lose £20 from your pocket → you feel awful for the rest of the day</li>
+    <li>Same amount of money. Completely different emotional weight.</li>
+    <li>Firms exploit this constantly — and you probably haven't noticed</li>
+  </ul>
+</div>
+
+<div class="rl-box">
+  <div class="rl-title">🎓 YOU FEEL THIS EVERY DAY</div>
+  <ul class="b">
+    <li><strong>Duolingo:</strong> "⚠️ You're about to lose your 47-day streak!" — not "keep up the great work." The fear of <em>losing</em> your streak is the whole engine.</li>
+    <li><strong>EA FC / Fortnite / Roblox:</strong> Once you've spent money on players, skins, or items — the idea of losing your account feels genuinely catastrophic. You keep spending to protect what you've invested.</li>
+    <li><strong>Amazon Prime student trial:</strong> One month free → once you've used next-day delivery and Prime Video, cancelling feels like <em>losing something</em> — not just declining to pay</li>
+    <li><strong>Your gym membership:</strong> You don't go, but you keep paying because cancelling means admitting you've wasted months of fees</li>
+  </ul>
+</div>
+
+<h2>Three Ways Firms Trigger This</h2>
+<div class="grid3">
+  <div class="gi">
+    <h3>⏰ Countdown timers</h3>
+    <ul class="b">
+      <li>"Offer ends in 01:42:18"</li>
+      <li>Creates immediate fear of loss</li>
+      <li>You stop thinking clearly and just buy</li>
+      <li>The timer often resets — but you didn't know that</li>
+    </ul>
+  </div>
+  <div class="gi">
+    <h3>📦 Scarcity warnings</h3>
+    <ul class="b">
+      <li>"Only 3 left in stock!"</li>
+      <li>Whether true or not — it works</li>
+      <li>Fear of missing out outweighs rational thought</li>
+      <li>Booking.com is notorious for this</li>
+    </ul>
+  </div>
+  <div class="gi">
+    <h3>🆓 Free trials</h3>
+    <ul class="b">
+      <li>Give it to you free → you start to feel it's yours</li>
+      <li>Losing access now feels worse than it felt good to gain</li>
+      <li>Subscription companies bank on this</li>
+    </ul>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- MATCHING — SLIDE 9 -->
+
+  <div class="panel" id="match-wrap-9" data-exid="9">
+    <div class="mcq-q">🔗 Matching Exercise — Which heuristic is each firm tactic targeting?</div>
+    <p class="match-hint">Click a tactic on the left, then click the heuristic it exploits on the right.</p>
+    <div class="match-cols">
+      <div>
+        <div class="match-col-label">Firm tactic</div>
+        <div class="match-item left-item" data-key="A" data-pair="4" onclick="matchClick(this,'9')">⏱️ Booking.com: "Only 1 room left at this price — 9 people looking right now"</div>
+        <div class="match-item left-item" data-key="B" data-pair="1" onclick="matchClick(this,'9')">🏷️ SHEIN: "Was £42 — Now £9" on a top</div>
+        <div class="match-item left-item" data-key="C" data-pair="3" onclick="matchClick(this,'9')">📺 Coca-Cola sponsors the FA Cup, Euros, and Premier League every year</div>
+        <div class="match-item left-item" data-key="D" data-pair="2" onclick="matchClick(this,'9')">🆓 Amazon Prime: free 30-day trial, then £8.99/month auto-renews</div>
+        <div class="match-item left-item" data-key="E" data-pair="5" onclick="matchClick(this,'9')">🦉 Duolingo: "You're about to lose your 30-day streak!"</div>
+      </div>
+      <div>
+        <div class="match-col-label">Heuristic being targeted</div>
+        <div class="match-item right-item" data-key="1" onclick="matchClick(this,'9')">Anchoring — the high original price becomes your reference point, making the lower price feel like a bargain</div>
+        <div class="match-item right-item" data-key="2" onclick="matchClick(this,'9')">Loss aversion (endowment) — once you have something, losing it feels worse than gaining it felt good</div>
+        <div class="match-item right-item" data-key="3" onclick="matchClick(this,'9')">Availability — constant exposure keeps the brand at the top of your memory for the buying moment</div>
+        <div class="match-item right-item" data-key="4" onclick="matchClick(this,'9')">Loss aversion (scarcity) — fear of missing out on a deal overrides careful thinking</div>
+        <div class="match-item right-item" data-key="5" onclick="matchClick(this,'9')">Loss aversion (progress) — the pain of losing what you've built is stronger than the reward of continuing</div>
+      </div>
+    </div>
+    <div class="match-btn-row">
+      <button class="toggle-btn" onclick="checkMatch('9')">✓ Check Answers</button>
+      <button class="match-reset-btn" onclick="resetMatch('9')">↺ Reset</button>
+    </div>
+    <div id="match-result-9"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 10 — SUPERMARKET CASE STUDY ═══ -->
+
+<div class="slide" id="slide-10">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 10 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">🛒</span>
+    <h1>Case Study — UK Supermarket "Price Wars"</h1>
+
+```
+<div class="hbox">
+  <p><strong>The claim:</strong> "We're cutting thousands of prices for you this Christmas!"</p>
+  <p><strong>The reality:</strong> Was there actually a price war — or was it an exercise in exploiting bounded rationality?</p>
+</div>
+
+<h2>Who Controls Your Weekly Shop?</h2>
+<p>UK grocery retail is massively concentrated. In 2025, just <strong>8 supermarkets hold 82% of the market</strong>:</p>
+<table>
+  <tr><th>Supermarket</th><th>Share</th><th>Supermarket</th><th>Share</th></tr>
+  <tr><td><strong>Tesco</strong></td><td>27.3%</td><td><strong>Morrison</strong></td><td>7.5%</td></tr>
+  <tr><td><strong>Sainsbury's</strong></td><td>14.0%</td><td><strong>Lidl</strong></td><td>6.8%</td></tr>
+  <tr><td><strong>Asda</strong></td><td>10.0%</td><td><strong>Waitrose</strong></td><td>3.6%</td></tr>
+  <tr><td><strong>Aldi</strong></td><td>9.0%</td><td><strong>Co-Op</strong></td><td>3.4%</td></tr>
+</table>
+<p>This gives them <strong>enormous pricing power</strong> — and enormous advertising budgets to control what you believe about their prices.</p>
+
+<h2>What The Guardian Actually Found — Christmas 2010</h2>
+<div class="step"><div class="step-num">1</div><div class="step-body">Tesco and Asda loudly announced a <strong>"price war"</strong> with thousands of price cuts</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-body">The Guardian tracked actual prices and found <strong>thousands of price rises happening at the same time</strong></div></div>
+<div class="step"><div class="step-num">3</div><div class="step-body">Cuts were on <strong>visible headline products</strong> — Christmas turkey, alcohol — things that anchor your overall impression of the store</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-body">Rises were on <strong>cupboard staples</strong> — pasta, tinned tomatoes, washing powder — where demand is most inelastic</div></div>
+<p style="margin-top:14px">Researcher Paul Dobson called it "the most curious price war I've ever seen — where you can't detect an overall drop in price levels or a fall in profits."</p>
+
+<h2>Why Customers Never Notice</h2>
+<div class="lim"><div class="lim-icon">👁️</div><div>Shoppers only check prices on <strong>62% of occasions</strong> when looking at a product. Supermarkets rely on you not checking the other 38%.</div></div>
+<div class="lim"><div class="lim-icon">🧮</div><div>We're <strong>poor at tracking our basket total</strong> as we shop — which makes quiet price rises nearly invisible in real time.</div></div>
+<div class="lim"><div class="lim-icon">🏷️</div><div>We form a rough impression of how cheap a store is — based on just a <strong>handful of products</strong>. Supermarkets cut prices on exactly those products to shape that impression.</div></div>
+<div class="lim"><div class="lim-icon">📜</div><div>You <strong>cannot check last week's prices</strong> from the shop floor. Supermarkets have a permanent information advantage — and they use it.</div></div>
+```
+
+  </div>
+  <div class="panel">
+    <div class="mcq-q">❓ Tesco advertises a cheap Christmas turkey while quietly raising prices on pasta and washing powder. Why does this work as a strategy?</div>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,false,'PED alone explains why staple rises don\'t lose many customers — but it doesn\'t explain why shoppers fail to notice the rises at all. The bounded rationality and anchoring pieces are essential.','PED is part of it but doesn\'t explain why shoppers miss the hidden rises.')">A) Just inelastic demand — people need staples so they pay regardless</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Availability explains why the "price war" messaging sticks in memory. But it doesn\'t explain the specific mechanism of using turkey prices to shape the store\'s overall price image.','Availability is one piece — but anchoring and OSPI are the core mechanisms.')">B) Just the availability heuristic — the advertising is memorable so people believe they\'re saving</li>
+      <li class="mcq-opt" onclick="ans(this,true,'Exactly. The cheap turkey anchors shoppers\' Overall Store Price Image — they conclude "Tesco is cheap right now." Bounded rationality means they\'re not tracking every item. Inelastic demand means the hidden staple rises don\'t drive anyone away. All three work together.','Anchoring on the turkey + bounded rationality (can\'t track all prices) + inelastic staple demand = the whole strategy.')">C) The turkey anchors the store's price image, bounded rationality stops customers noticing the hidden rises, and inelastic demand means they stay anyway</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Price discrimination means charging different people different prices for the same product. Here, everyone sees the same prices — the strategy is about perception, not segmentation.','Price discrimination is a separate concept — this is about manipulating everyone\'s perception of store prices.')">D) Price discrimination — they're charging different people different amounts</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 11 — TACTICS CONTINUED ═══ -->
+
+<div class="slide" id="slide-11">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 11 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">🔍</span>
+    <h1>The Pattern Keeps Repeating</h1>
+
+```
+<div class="hbox">
+  <p>If it happened once you could call it a coincidence. But these tactics are documented year after year — which makes them <strong>deliberate, systematic business strategy</strong>.</p>
+</div>
+
+<table>
+  <tr><th>Year</th><th>What happened</th><th>Tricks used</th></tr>
+  <tr><td><strong>2010</strong></td><td>Tesco/Asda Christmas "price war" — thousands of cuts announced, thousands of rises hidden on the same shelves</td><td>Anchoring, Availability, OSPI</td></tr>
+  <tr><td><strong>2015</strong></td><td>Which? super-complaint to the CMA: shrinkflation (same price, smaller product), confusing multi-buy offers, fake discounts</td><td>Anchoring, Incomplete info</td></tr>
+  <tr><td><strong>2019</strong></td><td>Iceland: Kellogg's Crunchy Nut "Two for £4!" — individual packs were £1.49 the week before. Two packs = £2.98 normally. The "deal" cost you more.</td><td>Anchoring, Loss aversion</td></tr>
+  <tr><td><strong>2025</strong></td><td>Easter "price war" announced — grocery prices recorded their biggest monthly rise in that exact same four-week period</td><td>Availability, Anchoring, Time pressure</td></tr>
+</table>
+
+<h2>Discounts Are Also Price Discrimination</h2>
+<ul class="b">
+  <li>Deal-hunters search for vouchers and use their Tesco Clubcard — they're <strong>price-sensitive (elastic demand)</strong></li>
+  <li>Others just grab whatever is on the shelf — they're <strong>not price-sensitive (inelastic demand)</strong></li>
+  <li>Result: same product, two prices — the promotion segments the market automatically</li>
+  <li><strong>Your Clubcard is Tesco identifying you as a deal-seeker and charging you less — while others pay full price for the same tin of tomatoes</strong></li>
+</ul>
+
+<h2>Is It Illegal?</h2>
+<div class="lim"><div class="lim-icon">⚖️</div><div>Technically yes — misleading pricing violates UK consumer law. The CMA can investigate and fine. But enforcement is slow, fines are often smaller than the profits gained, and the tactics continue between investigations.</div></div>
+
+<button class="toggle-btn" onclick="tog(this)" data-label="Comedy sketch — spot the tactics (2 mins)">📺 Comedy sketch — spot the tactics (2 mins)</button>
+<div class="toggle-content">
+  <p>This sketch is funny but maps onto the real tactics almost exactly. Watch the first 2 minutes and count how many techniques from this lecture you can spot:</p>
+  <p style="margin-top:10px"><strong>🔗 <a href="https://www.youtube.com/watch?v=VFuDhsxazqs" target="_blank" style="color:#8B4513">https://www.youtube.com/watch?v=VFuDhsxazqs</a></strong></p>
+</div>
+```
+
+  </div>
+  <div class="panel">
+    <div class="mcq-q">❓ Iceland advertises Kellogg's Crunchy Nut as "Two for £4!" The week before, single packs cost £1.49 — so two would have been £2.98. What's Iceland actually doing?</div>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,false,'A label in-store is an anchoring device. The availability heuristic operates through repeated advertising over time — not a single price tag.','A price label uses anchoring. Availability operates through repeated ad exposure, not a one-off label.')">A) Exploiting availability — the bold label sticks in your memory</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Loss aversion is secondary here. The main trick is the £4 label replacing your real reference point (£2.98) with a higher one.','Loss aversion is a secondary effect. The primary mechanism is anchoring.')">B) Loss aversion — you're scared of missing the offer</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Price discrimination is about different people paying different prices. Here everyone sees the same label — this is about manipulating everyone\'s perception of value.','This is not price discrimination — it\'s perception manipulation through anchoring.')">C) Price discrimination — some customers pay £4 and others pay less</li>
+      <li class="mcq-opt" onclick="ans(this,true,'Yes! "Two for £4" anchors you to £4 as the reference price for two packs. Your real comparison should be £2.98 — but you don\'t know last week\'s price. So a price rise gets disguised as a discount. The anchor does all the work.','Anchoring: the £4 replaces the real reference (£2.98). A price rise looks like a deal because the anchor says so.')">D) Anchoring — "Two for £4" creates a fake reference price that turns a price rise into a perceived discount</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 12 — SUMMARY ═══ -->
+
+<div class="slide" id="slide-12">
+  <div class="slide-header">
+    <div class="aru-logo-text"><span>a.r.u.</span><span>Anglia Ruskin University</span></div>
+    <span class="slide-badge">Slide 12 of 12</span>
+  </div>
+  <div class="card">
+    <span class="slide-icon">✅</span>
+    <h1>Summary — What You Now Know</h1>
+
+```
+<div class="grid2" style="margin-bottom:14px">
+  <div class="sum-item">
+    <h3>📉 Price Elasticity of Demand</h3>
+    <ul class="b">
+      <li>If price rises and customers <em>stay</em> → <strong>inelastic</strong> (stuck)</li>
+      <li>If price rises and customers <em>leave</em> → <strong>elastic</strong> (easy to swap)</li>
+      <li>Inelastic: raise price → TR goes up ✅</li>
+      <li>Elastic: lower price → TR goes up ✅</li>
+    </ul>
+  </div>
+  <div class="sum-item">
+    <h3>🎯 Price Discrimination</h3>
+    <ul class="b">
+      <li>Same product, different prices to different people</li>
+      <li>Needs: segment the market, block resale, have power</li>
+      <li>Your student discount is literally price discrimination — in your favour</li>
+      <li>Your Clubcard, your Railcard, your flight seat — all examples</li>
+    </ul>
+  </div>
+  <div class="sum-item">
+    <h3>🧠 Bounded Rationality</h3>
+    <ul class="b">
+      <li>We can't be fully rational — cognitive limits, missing info, time pressure</li>
+      <li>We satisfice — "good enough" not "best"</li>
+      <li>We use heuristics — fast shortcuts with predictable blind spots</li>
+      <li>Firms design entire strategies around those blind spots</li>
+    </ul>
+  </div>
+  <div class="sum-item">
+    <h3>⚓ The Three Heuristics</h3>
+    <ul class="b">
+      <li><strong>Anchoring</strong> — first number you see shapes everything (was/now, £4.99)</li>
+      <li><strong>Availability</strong> — most memorable brand wins (FYP, billboards, sponsorship)</li>
+      <li><strong>Loss aversion</strong> — losing hurts more than gaining feels good (timers, streaks, free trials)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="rl-box">
+  <div class="rl-title">🎓 THE REAL-WORLD PAYOFF — WHAT YOU CAN DO WITH THIS</div>
+  <ul class="b">
+    <li><strong>Before you buy in a sale:</strong> ask "was this price ever real?" — check price history with browser extensions like Camelizer (Amazon) or Honey</li>
+    <li><strong>When you see a timer:</strong> ask "does this actually reset?" — most do</li>
+    <li><strong>When you feel brand loyalty:</strong> ask "is this actually better, or just more familiar?"</li>
+    <li><strong>When you're about to pay full price:</strong> ask "is there a student discount?" — you're almost always in the elastic segment firms have already priced for</li>
+    <li><strong>When a firm raises prices:</strong> ask yourself where you sit on the demand curve — and whether you're actually stuck or just feel like you are</li>
+  </ul>
+</div>
+
+<div class="hbox" style="margin-top:14px">
+  <h3>📚 Next Steps</h3>
+  <ul class="b">
+    <li>Textbook sections <strong>2.6–2.13</strong> (PED and TR) · <strong>5.5</strong> (price discrimination) · <strong>1.3</strong> (consumers)</li>
+    <li>Review the <strong>Screencast on Canvas</strong> before next week</li>
+    <li><strong>OPEN ROOM</strong> — every Thursday from 1pm · Chelmsford Campus</li>
+  </ul>
+</div>
+```
+
+  </div>
+  <div class="panel">
+    <div class="mcq-q">🏆 Final Check — Your flatmate says: "I study economics so I'd never fall for anchoring or loss aversion tricks." How accurate is that?</div>
+    <ul class="mcq-opts">
+      <li class="mcq-opt" onclick="ans(this,false,'Economic knowledge helps you spot and question the tricks — but the research consistently shows it doesn\'t make you immune. Even economists who study these biases are still affected by them in experiments.','Awareness helps but doesn\'t provide immunity. The effects are structural — they work even when you know about them.')">A) Probably true — knowing about biases means you can override them</li>
+      <li class="mcq-opt" onclick="ans(this,false,'The evidence doesn\'t support this. These heuristics affect everyone regardless of background — they\'re structural features of human cognition, not signs of ignorance.','Research shows heuristic effects persist across education levels and backgrounds.')">B) Maybe — these tricks mainly work on people without financial education</li>
+      <li class="mcq-opt" onclick="ans(this,false,'Knowing about a bias can help — but "completely immune" isn\'t supported by any evidence. The Kahneman and Tversky experiments affected everyone, including experts.','Awareness reduces susceptibility slightly but doesn\'t eliminate it. Nobody is fully immune.')">C) Definitely true — once you know a bias exists, you become immune to it</li>
+      <li class="mcq-opt" onclick="ans(this,true,'Correct! Research consistently shows bounded rationality affects everyone — including people who study it. Kahneman and Tversky found that even expert statisticians were still anchored by irrelevant numbers. Awareness helps a little — but these are structural features of human cognition, not signs of ignorance. Your flatmate is overconfident.','Heuristic effects are universal. Even researchers who study anchoring are still anchored. Awareness helps but doesn\'t immunise.')">D) Probably wrong — these are structural features of human cognition that affect everyone, even experts</li>
+    </ul>
+    <div class="mcq-feedback"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+
+<div class="nav-bar">
+  <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+  <div class="progress-wrap">
+    <span class="progress-text" id="progressText">1 / 12</span>
+    <div class="prog-outer"><div class="prog-inner" id="progBar" style="width:8.33%"></div></div>
+  </div>
+  <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+</div>
+</div>
+
+<script>
+let current=1;const total=12;
+function showSlide(n){
+  if(n<1)n=1;if(n>total)n=total;current=n;
+  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+  document.getElementById('slide-'+current).classList.add('active');
+  document.getElementById('progressText').textContent=current+' / '+total;
+  document.getElementById('progBar').style.width=((current/total)*100)+'%';
+  document.getElementById('prevBtn').disabled=(current===1);
+  document.getElementById('nextBtn').disabled=(current===total);
+  const slide=document.getElementById('slide-'+current);
+  slide.querySelectorAll('.mcq-opt').forEach(o=>{o.classList.remove('correct','incorrect');o.style.pointerEvents='auto'});
+  slide.querySelectorAll('.mcq-feedback').forEach(f=>{f.classList.remove('show','ok','no');f.textContent=''});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function changeSlide(dir){showSlide(current+dir)}
+function tog(btn){
+  const c=btn.nextElementSibling;const l=btn.getAttribute('data-label');
+  c.classList.toggle('show');
+  btn.textContent=c.classList.contains('show')?'📺 Hide':'📺 '+l;
+}
+function ans(opt,isCorrect,explanation,correctMsg){
+  const panel=opt.closest('.panel');
+  const allOpts=panel.querySelectorAll('.mcq-opt');
+  const feedback=panel.querySelector('.mcq-feedback');
+  allOpts.forEach(o=>o.style.pointerEvents='none');
+  if(isCorrect){
+    opt.classList.add('correct');
+    feedback.textContent='✅ Correct! '+correctMsg;
+    feedback.className='mcq-feedback show ok';
+  }else{
+    opt.classList.add('incorrect');
+    allOpts.forEach(o=>{if(o.getAttribute('onclick')&&o.getAttribute('onclick').includes(',true,'))o.classList.add('correct')});
+    feedback.textContent='❌ Not quite. '+explanation;
+    feedback.className='mcq-feedback show no';
+  }
+}
+
+/* ── MATCHING ── */
+const COLORS=['#8B4513','#2e7d32','#1565c0','#7b1fa2','#e65100'];
+const matchState={};
+function getState(id){if(!matchState[id])matchState[id]={activeLeft:null,pairs:{},ci:0};return matchState[id];}
+function matchClick(el,id){
+  const s=getState(id);
+  const wrap=document.getElementById('match-wrap-'+id);
+  const isLeft=el.classList.contains('left-item');
+  const key=el.dataset.key;
+  if(isLeft){
+    wrap.querySelectorAll('.left-item').forEach(e=>e.classList.remove('sel'));
+    if(s.activeLeft===key){s.activeLeft=null;return;}
+    el.classList.add('sel');s.activeLeft=key;
+  } else {
+    if(!s.activeLeft)return;
+    const lk=s.activeLeft,rk=key;
+    if(s.pairs[lk]){const or=wrap.querySelector('.right-item[data-key="'+s.pairs[lk].rk+'"]');if(or){or.style.background='';or.style.color='';or.classList.remove('matched');}}
+    Object.keys(s.pairs).forEach(k=>{if(s.pairs[k]&&s.pairs[k].rk===rk){const ol=wrap.querySelector('.left-item[data-key="'+k+'"]');if(ol){ol.style.background='';ol.style.color='';ol.classList.remove('matched');}delete s.pairs[k];}});
+    const color=COLORS[s.ci%COLORS.length];s.ci++;
+    s.pairs[lk]={rk,color};
+    const le=wrap.querySelector('.left-item[data-key="'+lk+'"]');
+    [le,el].forEach(e=>{e.style.background=color;e.style.color='white';e.classList.add('matched');e.classList.remove('sel');});
+    s.activeLeft=null;
+    wrap.querySelectorAll('.match-item').forEach(e=>e.classList.remove('match-correct','match-incorrect'));
+    document.getElementById('match-result-'+id).innerHTML='';
+  }
+}
+function checkMatch(id){
+  const s=getState(id);
+  const wrap=document.getElementById('match-wrap-'+id);
+  const lefts=wrap.querySelectorAll('.left-item');
+  const res=document.getElementById('match-result-'+id);
+  if(Object.keys(s.pairs).length<lefts.length){res.innerHTML='<div class="mcq-feedback show no">⚠️ Match all items before checking.</div>';return;}
+  wrap.querySelectorAll('.match-item').forEach(e=>e.classList.remove('match-correct','match-incorrect'));
+  let ok=0;
+  lefts.forEach(el=>{
+    const lk=el.dataset.key,cp=el.dataset.pair,paired=s.pairs[lk];
+    if(paired&&paired.rk===cp){ok++;el.classList.add('match-correct');wrap.querySelector('.right-item[data-key="'+cp+'"]').classList.add('match-correct');}
+    else{el.classList.add('match-incorrect');if(paired){const wr=wrap.querySelector('.right-item[data-key="'+paired.rk+'"]');if(wr)wr.classList.add('match-incorrect');}}
+  });
+  res.innerHTML=ok===lefts.length
+    ?'<div class="mcq-feedback show ok">✅ Perfect! All '+ok+' matched correctly.</div>'
+    :'<div class="mcq-feedback show no">❌ '+ok+' / '+lefts.length+' correct. Red pairs need swapping — have another go!</div>';
+}
+function resetMatch(id){
+  matchState[id]={activeLeft:null,pairs:{},ci:0};
+  const wrap=document.getElementById('match-wrap-'+id);
+  wrap.querySelectorAll('.match-item').forEach(el=>{el.style.background='';el.style.color='';el.classList.remove('sel','matched','match-correct','match-incorrect');});
+  document.getElementById('match-result-'+id).innerHTML='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')changeSlide(1);else if(e.key==='ArrowLeft')changeSlide(-1);});
+showSlide(1);
+</script>
+
+</body>
+</html>
